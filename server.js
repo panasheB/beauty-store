@@ -4,7 +4,21 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const E = process.env;
+const E = {
+    ECOCASH_BASE_URL: 'https://developers.ecocash.co.zw/sandbox/payment/v1',
+    ECOCASH_USERNAME: 'sbx_cfb1ea4fce06',
+    ECOCASH_PASSWORD: 'h$DhZbtMNbDjdYGgG6yj',
+
+    MERCHANT_CODE: '001535',
+    MERCHANT_PIN: '0000',
+    MERCHANT_NUMBER: '263771234567',
+    TERMINAL_ID: 'SANDBOX01',
+    LOCATION: 'Harare',
+    MERCHANT_NAME: 'EcoCash Sandbox Merchant',
+    SUPER_MERCHANT_NAME: 'EcoCash Sandbox',
+
+    ADMIN_KEY: 'change-me'
+};
 const BASE = (E.ECOCASH_BASE_URL || 'https://developers.ecocash.co.zw/sandbox/payment/v1').replace(/\/+$/, '');
 const AUTH = 'Basic ' + Buffer.from(`${E.ECOCASH_USERNAME}:${E.ECOCASH_PASSWORD}`).toString('base64');
 const ADMIN_KEY = E.ADMIN_KEY || '';
