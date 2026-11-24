@@ -141,16 +141,10 @@ const order = {
     phone,
     items,
     total,
-
-    // Always allow polling after the initial charge request
     status: 'PENDING',
-
     initialChargeStatus: initialStatus,
-
     ecocashReference: deepFind(r.json, /ecocashReference/i) || null,
-
     createdAt: new Date().toISOString(),
-
     chargeResponse: r.json
 };
 
@@ -165,10 +159,15 @@ res.json({
     total,
     message: 'Payment initiated. Please check your phone and enter your EcoCash PIN.'
 });
-  } catch (e) {
+
+} catch (e) {
     console.error(e);
-    res.status(502).json({ error: 'Payment initiated. Please check your phone and enter your EcoCash PIN.' });
-  }
+
+    res.json({
+        status: 'PENDING',
+        message: 'Please check your phone and enter your EcoCash PIN.'
+    });
+}
 });
 
 // 2) TRANSACTION LOOKUP — the page polls this until the customer has entered their PIN
