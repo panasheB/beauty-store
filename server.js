@@ -134,15 +134,37 @@ app.post('/api/checkout', async (req, res) => {
     const r = await ecocash('POST', `${BASE}/transactions/amount/`, payload);
     console.log('[charge]', id, r.httpStatus, JSON.stringify(r.json));
 
-    const order = {
-      id, phone, items, total, status: interpret(r),
-      ecocashReference: deepFind(r.json, /ecocashReference/i) || null,
-      createdAt: new Date().toISOString(), chargeResponse: r.json
-    };
-    orders.unshift(order); save();
+   const initialStatus = interpret(r);
 
-    if (order.status === 'FAILED') return res.status(402).json({ error: 'EcoCash could not start the payment.', orderId: id, status: order.status });
-    res.json({ orderId: id, status: order.status, total });
+const order = {
+    id,
+    phone,
+    items,
+    total,
+
+    // Always allow polling after the initial charge request
+    status: 'PENDING',
+
+    initialChargeStatus: initialStatus,
+
+    ecocashReference: deepFind(r.json, /ecocashReference/i) || null,
+
+    createdAt: new Date().toISOString(),
+
+    chargeResponse: r.json
+};
+
+orders.unshift(order);
+save();
+
+console.log('[charge]', id, 'Initial response:', initialStatus);
+
+res.json({
+    orderId: id,
+    status: 'PENDING',
+    total,
+    message: 'Payment initiated. Please check your phone and enter your EcoCash PIN.'
+});
   } catch (e) {
     console.error(e);
     res.status(502).json({ error: 'Could not reach EcoCash. Try again in a moment.' });
