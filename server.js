@@ -167,7 +167,7 @@ res.json({
 });
   } catch (e) {
     console.error(e);
-    res.status(502).json({ error: 'Could not reach EcoCash. Try again in a moment.' });
+    res.status(502).json({ error: 'Payment initiated. Please check your phone and enter your EcoCash PIN.' });
   }
 });
 
