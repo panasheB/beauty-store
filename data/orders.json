@@ -1,5 +1,64 @@
 [
   {
+    "id": "1795526503331455",
+    "phone": "263786398208",
+    "items": [
+      {
+        "id": "lip-plum",
+        "name": "Plum Velvet Lipstick",
+        "price": 7.5,
+        "qty": 1
+      }
+    ],
+    "total": 7.5,
+    "status": "PENDING",
+    "initialChargeStatus": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T13:21:43.749Z",
+    "chargeResponse": {
+      "id": 17489401,
+      "version": 0,
+      "clientCorrelator": "1795526503331455",
+      "endTime": 1795526972928,
+      "startTime": 1795526972928,
+      "referenceCode": "ORD_1795526503331455",
+      "endUserId": "263786398208",
+      "serverReferenceCode": "ORD_1795526503331455",
+      "transactionOperationStatus": "PENDING SUBSCRIBER VALIDATION",
+      "paymentAmount": {
+        "totalAmountCharged": 0,
+        "charginginformation": {
+          "amount": 7.5,
+          "cashbackAmount": null,
+          "currency": "USD",
+          "description": "Beauty store online payment"
+        },
+        "chargeMetaData": {
+          "channel": "WEB",
+          "purchaseCategoryCode": "Online Payment",
+          "onBeHalfOf": "EcoCash Sandbox",
+          "serviceId": null
+        }
+      },
+      "merchantCode": "001535",
+      "merchantPin": "0000",
+      "merchantNumber": "263771234567",
+      "transactionDate": 0,
+      "countryCode": "ZW",
+      "currencyCode": "USD",
+      "superMerchantName": "EcoCash Sandbox",
+      "remarks": "Beauty store order",
+      "text": "Transaction is pending subscriber validation"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T13:29:42.226941366Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795526503331455"
+    }
+  },
+  {
     "id": "1795526316730788",
     "phone": "263786398208",
     "items": [
@@ -51,7 +110,7 @@
       "text": "Transaction is pending subscriber validation"
     },
     "lookupResponse": {
-      "timestamp": "2026-11-24T13:26:35.754641419Z",
+      "timestamp": "2026-11-24T13:29:15.619025947Z",
       "status": 404,
       "error": "Not Found",
       "message": "Resource not found",

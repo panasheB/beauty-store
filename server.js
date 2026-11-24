@@ -172,22 +172,66 @@ res.json({
 });
 
 // 2) TRANSACTION LOOKUP — the page polls this until the customer has entered their PIN
-app.get('/api/orders/:id/status', async (req, res) => {
-  const order = findOrder(req.params.id);
-  if (!order) return res.status(404).json({ error: 'Order not found.' });
-  if (order.status === 'PENDING') {
-    try {
-      const r = await ecocash('GET', `${BASE}/transactions/amount/${order.id}`);
-      const next = interpret(r);
-      order.lookupResponse = r.json;
-      order.ecocashReference = order.ecocashReference || deepFind(r.json, /ecocashReference/i) || null;
-      if (next !== 'PENDING') order.status = next;
-      save();
-    } catch (e) { console.error(e); }
-  }
-  res.json({ orderId: order.id, status: order.status, total: order.total });
-});
+// app.get('/api/orders/:id/status', async (req, res) => {
+//   const order = findOrder(req.params.id);
+//   if (!order) return res.status(404).json({ error: 'Order not found.' });
+//   if (order.status === 'PENDING') {
+//     try {
+//       const r = await ecocash('GET', `${BASE}/transactions/amount/${order.id}`);
+//       const next = interpret(r);
+//       order.lookupResponse = r.json;
+//       order.ecocashReference = order.ecocashReference || deepFind(r.json, /ecocashReference/i) || null;
+//       if (next !== 'PENDING') order.status = next;
+//       save();
+//     } catch (e) { console.error(e); }
+//   }
+//   res.json({ orderId: order.id, status: order.status, total: order.total });
+// });
 
+
+
+app.get('/api/orders/:id/status', async (req, res) => {
+    const order = findOrder(req.params.id);
+
+    if (!order) {
+        return res.status(404).json({ error: 'Order not found.' });
+    }
+
+    if (order.status === 'PENDING') {
+        try {
+            const r = await ecocash(
+                'GET',
+                `${BASE}/transactions/amount/${order.id}`
+            );
+
+            const next = interpret(r);
+
+            order.lookupResponse = r.json;
+
+            order.ecocashReference =
+                order.ecocashReference ||
+                deepFind(r.json, /ecocashReference/i) ||
+                null;
+
+            if (next !== 'PENDING') {
+                order.status = next;
+            }
+
+            save();
+
+            console.log('[poll]', order.id, 'Status:', order.status);
+
+        } catch (e) {
+            console.error('[poll error]', e);
+        }
+    }
+
+    res.json({
+        orderId: order.id,
+        status: order.status,
+        total: order.total
+    });
+});
 // ---------- Admin ----------
 function requireAdmin(req, res, next) {
   const key = req.get('x-admin-key') || '';
