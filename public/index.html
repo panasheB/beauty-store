@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Petal &amp; Pestle — Skincare and colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#3A1D3F; --plum-2:#5A2F60; --blush:#F7DCE0; --rose:#E9A9B6; --sage:#7C9A7E;
+  --paper:#FFF8F8; --ink:#241527; --line:#E9D3D8; --ok:#2F7D4F; --bad:#B3303F;
+  --display:'Bodoni Moda',Georgia,serif; --body:'Figtree',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--plum-2);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+header{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--plum);text-decoration:none;letter-spacing:-.01em}
+.bag-btn{background:var(--plum);color:#fff;border:0;border-radius:999px;padding:10px 18px;cursor:pointer;font-weight:600;display:flex;gap:10px;align-items:center}
+.bag-btn span{background:var(--rose);color:var(--plum);border-radius:999px;min-width:24px;height:24px;display:grid;place-items:center;font-size:.8rem;padding:0 6px}
+
+.hero{background:var(--blush);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;min-height:440px;padding-top:40px;padding-bottom:40px}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,6vw,4.8rem);line-height:1;color:var(--plum);letter-spacing:-.02em}
+.hero p{margin:20px 0 28px;max-width:44ch;font-size:1.1rem;color:var(--plum-2)}
+.btn{display:inline-block;background:var(--plum);color:#fff;border:0;border-radius:10px;padding:14px 26px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--plum-2)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--plum);border:1.5px solid var(--plum)}
+.lineup{display:flex;align-items:flex-end;justify-content:center;gap:10px;height:340px}
+.lineup svg{height:auto;filter:drop-shadow(0 14px 18px rgba(58,29,63,.18))}
+.lineup .pop{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.lineup .pop:nth-child(2){animation-delay:.12s}.lineup .pop:nth-child(3){animation-delay:.24s}.lineup .pop:nth-child(4){animation-delay:.36s}
+@keyframes rise{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+
+section.shop{padding:56px 0 80px}
+section.shop h2{font-family:var(--display);font-size:2rem;color:var(--plum);margin-bottom:6px}
+.sub{color:#6d5870;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+.card{display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line)}
+.card .art{background:var(--blush);display:grid;place-items:center;height:210px}
+.card .art svg{height:150px;width:auto}
+.card .info{padding:16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{font-size:1.02rem;font-weight:600}
+.card .note{color:#7a657d;font-size:.9rem}
+.card .row{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center}
+.price{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--plum)}
+.add{background:#fff;border:1.5px solid var(--plum);color:var(--plum);border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer}
+.add:hover{background:var(--plum);color:#fff}
+
+footer{background:var(--plum);color:#e9d3ee;padding:34px 0;font-size:.92rem}
+
+/* drawer + modal */
+.scrim{position:fixed;inset:0;background:rgba(36,21,39,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--paper);z-index:40;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer header{position:static;display:flex;justify-content:space-between;align-items:center;padding:18px 22px}
+.drawer h2{font-family:var(--display);color:var(--plum)}
+.x{background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--plum)}
+.lines{flex:1;overflow:auto;padding:8px 22px}
+.line{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qty{display:flex;align-items:center;gap:8px;margin-top:4px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--plum);background:#fff;cursor:pointer;color:var(--plum)}
+.empty{padding:40px 0;color:#7a657d;text-align:center}
+.foot{padding:18px 22px;border-top:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-weight:600;font-size:1.15rem;margin-bottom:14px}
+
+.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px}
+.modal.on{display:grid}
+.panel{background:var(--paper);border-radius:18px;max-width:440px;width:100%;padding:30px;position:relative;z-index:2}
+.panel h2{font-family:var(--display);color:var(--plum);margin-bottom:8px}
+.panel p{color:#5c475f}
+label{display:block;font-weight:600;margin:18px 0 6px}
+input.field{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:1.05rem}
+.err{color:var(--bad);margin-top:10px;font-weight:500;min-height:1.2em}
+.state{text-align:center}
+.spinner{width:44px;height:44px;border:4px solid var(--blush);border-top-color:var(--plum);border-radius:50%;animation:spin 1s linear infinite;margin:6px auto 18px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tick{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;font-size:1.9rem;color:#fff}
+.tick.ok{background:var(--ok)}.tick.no{background:var(--bad)}
+@media(max-width:780px){.hero .wrap{grid-template-columns:1fr}.lineup{height:240px}.lineup svg{width:70px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="#">Petal &amp; Pestle</a>
+  <button class="bag-btn" id="openBag" aria-label="Open shopping bag">Bag <span id="count">0</span></button>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>Skincare that starts with what your skin asked for.</h1>
+    <p>Serums, balms and lip colour made for Zimbabwean weather. Pay with EcoCash in seconds.</p>
+    <a class="btn" href="#shop">Shop the range</a>
+  </div>
+  <div class="lineup" id="lineup" aria-hidden="true"></div>
+</div></div>
+
+<section class="shop" id="shop"><div class="wrap">
+  <h2>The range</h2>
+  <p class="sub">All prices in US dollars.</p>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<footer><div class="wrap">Petal &amp; Pestle · Harare · Payments by EcoCash (sandbox)</div></footer>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" aria-label="Shopping bag">
+  <header><h2>Your bag</h2><button class="x" id="closeBag" aria-label="Close bag">×</button></header>
+  <div class="lines" id="lines"></div>
+  <div class="foot">
+    <div class="total"><span>Total</span><span id="total">$0.00</span></div>
+    <button class="btn" id="checkout" style="width:100%" disabled>Pay with EcoCash</button>
+  </div>
+</aside>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const money = (n) => '$' + n.toFixed(2);
+let products = [], cart = {};   // cart: id -> qty
+
+function art(shape, c, h = 150) {
+  const d = '#3A1D3F';
+  const shapes = {
+    dropper: `<svg viewBox="0 0 60 120" height="${h}"><rect x="22" y="0" width="16" height="22" rx="8" fill="${d}"/><rect x="18" y="20" width="24" height="12" fill="#fff" opacity=".9"/><rect x="8" y="32" width="44" height="84" rx="12" fill="${c}"/><rect x="14" y="58" width="32" height="30" rx="4" fill="#fff" opacity=".85"/></svg>`,
+    tube:    `<svg viewBox="0 0 60 130" height="${h}"><path d="M10 6h40l-4 14H14z" fill="${d}"/><path d="M14 20h32l4 100H10z" fill="${c}"/><rect x="18" y="52" width="24" height="28" rx="3" fill="#fff" opacity=".85"/></svg>`,
+    jar:     `<svg viewBox="0 0 90 80" height="${h*0.7}"><rect x="6" y="6" width="78" height="22" rx="6" fill="${d}"/><rect x="10" y="26" width="70" height="48" rx="10" fill="${c}"/><rect x="24" y="38" width="42" height="22" rx="4" fill="#fff" opacity=".85"/></svg>`,
+    stick:   `<svg viewBox="0 0 44 130" height="${h}"><path d="M14 4q8-4 16 0l2 40H12z" fill="${c}"/><rect x="10" y="44" width="24" height="14" fill="#d8c8a0"/><rect x="6" y="58" width="32" height="68" rx="5" fill="${d}"/></svg>`
+  };
+  return shapes[shape];
+}
+
+async function init() {
+  products = await (await fetch('/api/products')).json();
+  $('#lineup').innerHTML = [products[0], products[3], products[2], products[5]]
+    .map(p => `<div class="pop">${art(p.shape, p.color, 220)}</div>`).join('');
+  $('#grid').innerHTML = products.map(p => `
+    <article class="card">
+      <div class="art">${art(p.shape, p.color)}</div>
+      <div class="info">
+        <h3>${p.name}</h3><div class="note">${p.note}</div>
+        <div class="row"><span class="price">${money(p.price)}</span>
+        <button class="add" data-id="${p.id}">Add to bag</button></div>
+      </div>
+    </article>`).join('');
+  render();
+}
+
+function render() {
+  const ids = Object.keys(cart);
+  const count = ids.reduce((s, id) => s + cart[id], 0);
+  const total = ids.reduce((s, id) => s + cart[id] * products.find(p => p.id === id).price, 0);
+  $('#count').textContent = count;
+  $('#total').textContent = money(total);
+  $('#checkout').disabled = !count;
+  $('#lines').innerHTML = ids.length ? ids.map(id => {
+    const p = products.find(x => x.id === id);
+    return `<div class="line"><div><strong>${p.name}</strong>
+      <div class="qty"><button data-dec="${id}" aria-label="Remove one">−</button>${cart[id]}<button data-inc="${id}" aria-label="Add one">+</button></div></div>
+      <div>${money(p.price * cart[id])}</div></div>`;
+  }).join('') : '<div class="empty">Your bag is empty. Add something you like.</div>';
+}
+
+const drawer = (on) => { $('#drawer').classList.toggle('on', on); $('#scrim').classList.toggle('on', on); };
+$('#openBag').onclick = () => drawer(true);
+$('#closeBag').onclick = () => drawer(false);
+$('#scrim').onclick = () => { if (!$('#modal').classList.contains('on')) drawer(false); };
+
+document.addEventListener('click', (e) => {
+  const t = e.target;
+  if (t.dataset.id) { cart[t.dataset.id] = (cart[t.dataset.id] || 0) + 1; render(); t.textContent = 'Added'; setTimeout(() => t.textContent = 'Add to bag', 900); }
+  if (t.dataset.inc) { cart[t.dataset.inc]++; render(); }
+  if (t.dataset.dec) { if (--cart[t.dataset.dec] <= 0) delete cart[t.dataset.dec]; render(); }
+});
+
+// ---------- Checkout flow ----------
+const modal = $('#modal'), panel = $('#panel');
+const cartTotal = () => Object.keys(cart).reduce((s, id) => s + cart[id] * products.find(p => p.id === id).price, 0);
+function showModal(html) { panel.innerHTML = html; modal.classList.add('on'); $('#scrim').classList.add('on'); }
+function hideModal() { modal.classList.remove('on'); if (!$('#drawer').classList.contains('on')) $('#scrim').classList.remove('on'); }
+
+$('#checkout').onclick = () => {
+  showModal(`<h2>Pay with EcoCash</h2>
+    <p>You will pay <strong>${money(cartTotal())}</strong>. We’ll send a prompt to your phone where you enter your PIN.</p>
+    <label for="phone">EcoCash number</label>
+    <input class="field" id="phone" inputmode="tel" placeholder="0771234567" autocomplete="tel">
+    <div class="err" id="err" role="alert"></div>
+    <div style="display:flex;gap:10px;margin-top:14px"><button class="btn" id="pay">Send payment request</button><button class="btn ghost" id="cancel">Cancel</button></div>`);
+  $('#phone').focus();
+  $('#cancel').onclick = hideModal;
+  $('#pay').onclick = startPayment;
+};
+
+async function startPayment() {
+  const phone = $('#phone').value;
+  $('#pay').disabled = true; $('#err').textContent = '';
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, items: Object.entries(cart).map(([id, qty]) => ({ id, qty })) })
+    });
+    const data = await res.json();
+    if (!res.ok) { $('#err').textContent = data.error; $('#pay').disabled = false; return; }
+    waitForPin(data.orderId, phone);
+  } catch { $('#err').textContent = 'Network problem. Check your connection and try again.'; $('#pay').disabled = false; }
+}
+
+function waitForPin(orderId, phone) {
+  showModal(`<div class="state"><div class="spinner"></div><h2>Check your phone</h2>
+    <p>Enter your EcoCash PIN on <strong>${phone}</strong> to approve the payment.</p></div>`);
+  const started = Date.now();
+  const timer = setInterval(async () => {
+    try {
+      const r = await (await fetch(`/api/orders/${orderId}/status`)).json();
+      if (r.status === 'PAID') { clearInterval(timer); cart = {}; render(); result(true, orderId); }
+      else if (r.status === 'FAILED') { clearInterval(timer); result(false, orderId); }
+      else if (Date.now() - started > 120000) { clearInterval(timer); result(false, orderId, true); }
+    } catch {}
+  }, 3000);
+}
+
+function result(ok, orderId, timeout) {
+  showModal(`<div class="state"><div class="tick ${ok ? 'ok' : 'no'}">${ok ? '✓' : '✕'}</div>
+    <h2>${ok ? 'Payment received' : timeout ? 'We didn’t get your PIN' : 'Payment not completed'}</h2>
+    <p>${ok ? `Thank you! Your order number is <strong>${orderId}</strong>.`
+      : 'No money was taken. Check your balance and PIN, then try again.'}</p>
+    <button class="btn" id="done" style="margin-top:20px">${ok ? 'Keep shopping' : 'Back to bag'}</button></div>`);
+  $('#done').onclick = () => { hideModal(); if (ok) drawer(false); };
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orders — Petal &amp; Pestle admin</title>
+<style>
+:root{--plum:#3A1D3F;--line:#E9D3D8;--ok:#2F7D4F;--bad:#B3303F;--warn:#9A6A00}
+*{box-sizing:border-box}
+body{font-family:system-ui,sans-serif;margin:0;background:#FFF8F8;color:#241527}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+h1{color:var(--plum);margin:0 0 4px}
+button,input{font:inherit}
+input{padding:10px 12px;border:1.5px solid var(--line);border-radius:8px}
+button{padding:8px 14px;border-radius:8px;border:1.5px solid var(--plum);background:var(--plum);color:#fff;cursor:pointer;font-weight:600}
+button.ghost{background:#fff;color:var(--plum)}
+button:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:3px solid #5A2F60;outline-offset:2px}
+.login{display:flex;gap:10px;margin:18px 0}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:.93rem}
+th{background:#F7DCE0;color:var(--plum)}
+.pill{padding:2px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:#eee}
+.PAID{background:#d9f0e2;color:var(--ok)}.FAILED{background:#f8dadd;color:var(--bad)}
+.PENDING{background:#fdf0cc;color:var(--warn)}.REFUNDED{background:#e3dcf0;color:#4b2f7a}
+.msg{margin:12px 0;min-height:1.3em;font-weight:500}
+.scroll{overflow-x:auto}
+code{font-size:.85rem}
+</style></head>
+<body><div class="wrap">
+<h1>Orders</h1>
+<div>Check payments and refund paid orders.</div>
+<div class="login"><input id="key" type="password" placeholder="Admin key" aria-label="Admin key"><button id="load">Load orders</button></div>
+<div class="msg" id="msg" role="status"></div>
+<div class="scroll"><table id="t" hidden>
+<thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>EcoCash ref</th><th></th></tr></thead>
+<tbody id="rows"></tbody></table></div>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+const hdr = () => ({ 'x-admin-key': $('#key').value, 'Content-Type': 'application/json' });
+const say = (t, bad) => { $('#msg').textContent = t; $('#msg').style.color = bad ? '#B3303F' : '#2F7D4F'; };
+let orders = [];
+
+async function load() {
+  const r = await fetch('/api/admin/orders', { headers: hdr() });
+  if (!r.ok) { say((await r.json()).error, true); return; }
+  orders = await r.json(); say(`${orders.length} order(s)`); draw();
+}
+function draw() {
+  $('#t').hidden = false;
+  $('#rows').innerHTML = orders.map(o => `<tr>
+    <td><code>${o.id}</code><br><small>${new Date(o.createdAt).toLocaleString()}</small></td>
+    <td>${o.phone}</td>
+    <td>${o.items.map(i => `${i.qty} × ${i.name}`).join('<br>')}</td>
+    <td>$${o.total.toFixed(2)}</td>
+    <td><span class="pill ${o.status}">${o.status}</span></td>
+    <td>${o.ecocashReference ? `<code>${o.ecocashReference}</code>` : (o.status === 'PAID' ? '<input data-ref="' + o.id + '" placeholder="Paste reference" size="16">' : '—')}</td>
+    <td>
+      ${o.status === 'PENDING' ? `<button class="ghost" data-refresh="${o.id}">Check status</button>` : ''}
+      ${o.status === 'PAID' ? `<button data-refund="${o.id}">Refund $${o.total.toFixed(2)}</button>` : ''}
+    </td></tr>`).join('');
+}
+document.addEventListener('click', async (e) => {
+  const t = e.target;
+  if (t.id === 'load') return load();
+  if (t.dataset.refresh) {
+    const r = await fetch(`/api/admin/orders/${t.dataset.refresh}/refresh`, { method: 'POST', headers: hdr() });
+    return r.ok ? load() : say((await r.json()).error, true);
+  }
+  if (t.dataset.refund) {
+    const o = orders.find(x => x.id === t.dataset.refund);
+    if (!confirm(`Refund $${o.total.toFixed(2)} to ${o.phone}?`)) return;
+    const manual = document.querySelector(`[data-ref="${o.id}"]`);
+    t.disabled = true;
+    const r = await fetch(`/api/admin/orders/${o.id}/refund`, {
+      method: 'POST', headers: hdr(),
+      body: JSON.stringify({ originalEcocashReference: manual ? manual.value : '' })
+    });
+    const d = await r.json();
+    say(r.ok ? `Order ${o.id} refunded.` : d.error, !r.ok);
+    load();
+  }
+});
+</script></body></html>
