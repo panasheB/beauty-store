@@ -1,0 +1,263 @@
+[
+  {
+    "id": "1795523889395495",
+    "phone": "263771222718",
+    "items": [
+      {
+        "id": "cleanser-oat",
+        "name": "Oat Milk Cleanser",
+        "price": 9,
+        "qty": 1
+      }
+    ],
+    "total": 9,
+    "status": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T12:38:09.992Z",
+    "chargeResponse": {
+      "id": 1334019172,
+      "version": 0,
+      "clientCorrelator": "1795523889395495",
+      "endTime": 1795524359118,
+      "startTime": 1795524359118,
+      "referenceCode": "ORD_1795523889395495",
+      "endUserId": "263771222718",
+      "serverReferenceCode": "ORD_1795523889395495",
+      "transactionOperationStatus": "PENDING SUBSCRIBER VALIDATION",
+      "paymentAmount": {
+        "totalAmountCharged": 0,
+        "charginginformation": {
+          "amount": 9,
+          "cashbackAmount": null,
+          "currency": "USD",
+          "description": "Beauty store online payment"
+        },
+        "chargeMetaData": {
+          "channel": "WEB",
+          "purchaseCategoryCode": "Online Payment",
+          "onBeHalfOf": "EcoCash Sandbox",
+          "serviceId": null
+        }
+      },
+      "merchantCode": "001535",
+      "merchantPin": "0000",
+      "merchantNumber": "263771234567",
+      "transactionDate": 0,
+      "countryCode": "ZW",
+      "currencyCode": "USD",
+      "superMerchantName": "EcoCash Sandbox",
+      "remarks": "Beauty store order",
+      "text": "Transaction is pending subscriber validation"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T12:46:17.439538170Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795523889395495"
+    }
+  },
+  {
+    "id": "1795523356281398",
+    "phone": "263786398208",
+    "items": [
+      {
+        "id": "oil-marula",
+        "name": "Marula Face Oil",
+        "price": 15,
+        "qty": 1
+      }
+    ],
+    "total": 15,
+    "status": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T12:29:16.733Z",
+    "chargeResponse": {
+      "id": 1370254902,
+      "version": 0,
+      "clientCorrelator": "1795523356281398",
+      "endTime": 1795523825901,
+      "startTime": 1795523825901,
+      "referenceCode": "ORD_1795523356281398",
+      "endUserId": "263786398208",
+      "serverReferenceCode": "ORD_1795523356281398",
+      "transactionOperationStatus": "PENDING SUBSCRIBER VALIDATION",
+      "paymentAmount": {
+        "totalAmountCharged": 0,
+        "charginginformation": {
+          "amount": 15,
+          "cashbackAmount": null,
+          "currency": "USD",
+          "description": "Beauty store online payment"
+        },
+        "chargeMetaData": {
+          "channel": "WEB",
+          "purchaseCategoryCode": "Online Payment",
+          "onBeHalfOf": "EcoCash Sandbox",
+          "serviceId": null
+        }
+      },
+      "merchantCode": "001535",
+      "merchantPin": "0000",
+      "merchantNumber": "263771234567",
+      "transactionDate": 0,
+      "countryCode": "ZW",
+      "currencyCode": "USD",
+      "superMerchantName": "EcoCash Sandbox",
+      "remarks": "Beauty store order",
+      "text": "Transaction is pending subscriber validation"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T12:44:45.892010908Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795523356281398"
+    }
+  },
+  {
+    "id": "1795523223176725",
+    "phone": "263786398208",
+    "items": [
+      {
+        "id": "serum-glow",
+        "name": "Glow Vitamin C Serum",
+        "price": 18.5,
+        "qty": 1
+      }
+    ],
+    "total": 18.5,
+    "status": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T12:27:04.101Z",
+    "chargeResponse": {
+      "id": 1284682080,
+      "version": 0,
+      "clientCorrelator": "1795523223176725",
+      "endTime": 1795523693200,
+      "startTime": 1795523693200,
+      "referenceCode": "ORD_1795523223176725",
+      "endUserId": "263786398208",
+      "serverReferenceCode": "ORD_1795523223176725",
+      "transactionOperationStatus": "PENDING SUBSCRIBER VALIDATION",
+      "paymentAmount": {
+        "totalAmountCharged": 0,
+        "charginginformation": {
+          "amount": 18.5,
+          "cashbackAmount": null,
+          "currency": "USD",
+          "description": "Beauty store online payment"
+        },
+        "chargeMetaData": {
+          "channel": "WEB",
+          "purchaseCategoryCode": "Online Payment",
+          "onBeHalfOf": "EcoCash Sandbox",
+          "serviceId": null
+        }
+      },
+      "merchantCode": "001535",
+      "merchantPin": "0000",
+      "merchantNumber": "263771234567",
+      "transactionDate": 0,
+      "countryCode": "ZW",
+      "currencyCode": "USD",
+      "superMerchantName": "EcoCash Sandbox",
+      "remarks": "Beauty store order",
+      "text": "Transaction is pending subscriber validation"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T12:40:06.069541304Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795523223176725"
+    }
+  },
+  {
+    "id": "1795522722969601",
+    "phone": "263771222718",
+    "items": [
+      {
+        "id": "cleanser-oat",
+        "name": "Oat Milk Cleanser",
+        "price": 9,
+        "qty": 1
+      }
+    ],
+    "total": 9,
+    "status": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T12:18:43.160Z",
+    "chargeResponse": {
+      "timestamp": "2026-11-24T12:26:32.337Z",
+      "status": 401,
+      "error": "Unauthorized",
+      "path": "/sandbox/payment/v1/transactions/amount/"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T12:41:01.326917188Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795522722969601"
+    }
+  },
+  {
+    "id": "1795522677964929",
+    "phone": "263786398208",
+    "items": [
+      {
+        "id": "oil-marula",
+        "name": "Marula Face Oil",
+        "price": 15,
+        "qty": 1
+      }
+    ],
+    "total": 15,
+    "status": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T12:17:58.156Z",
+    "chargeResponse": {
+      "timestamp": "2026-11-24T12:25:47.332Z",
+      "status": 401,
+      "error": "Unauthorized",
+      "path": "/sandbox/payment/v1/transactions/amount/"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T12:40:16.121293840Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795522677964929"
+    }
+  },
+  {
+    "id": "1795522585220584",
+    "phone": "263786398208",
+    "items": [
+      {
+        "id": "serum-glow",
+        "name": "Glow Vitamin C Serum",
+        "price": 18.5,
+        "qty": 1
+      }
+    ],
+    "total": 18.5,
+    "status": "PENDING",
+    "ecocashReference": null,
+    "createdAt": "2026-11-24T12:16:25.943Z",
+    "chargeResponse": {
+      "timestamp": "2026-11-24T12:24:15.038Z",
+      "status": 401,
+      "error": "Unauthorized",
+      "path": "/sandbox/payment/v1/transactions/amount/"
+    },
+    "lookupResponse": {
+      "timestamp": "2026-11-24T12:44:49.650582237Z",
+      "status": 404,
+      "error": "Not Found",
+      "message": "Resource not found",
+      "path": "/sandbox/payment/v1/transactions/amount/1795522585220584"
+    }
+  }
+]
